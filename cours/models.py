@@ -1,5 +1,8 @@
 from django.db import models
 
+'''
+This is model for the plateform's Courses 
+'''
 class Cours(models.Model):
     nom = models.CharField(max_length=45)
     description = models.CharField(max_length=45)
