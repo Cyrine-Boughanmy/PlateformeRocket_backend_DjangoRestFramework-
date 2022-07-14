@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import datetime
 import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,11 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework', 
+    'django_rest_passwordreset',
+    'django_filters',
+    'ckeditor', 
     'super_user', 
     'simple_user', 
     'exercices', 
     'cours', 
     'categories', 
+    'evaluation',
+    'qcm', 
+    'blog',
+    'annonces', 
 ]
 
 MIDDLEWARE = [
@@ -105,6 +114,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    #  ],
+    # 'DATE_INPUT_FORMATS': '%d/%m/%Y',
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
+    )
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -129,3 +151,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=15),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.views.custom_jwt.jwt_response_payload_handler',
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=15),
+    # Authorization:Token xxx
+    'JWT_AUTH_HEADER_PREFIX': 'Token',
+}
+SIMPLE_JWT = {
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=15),
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=15),
+    'ROTATE_REFRESH_TOKENS': True,
+}
