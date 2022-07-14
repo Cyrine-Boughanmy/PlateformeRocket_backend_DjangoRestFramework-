@@ -23,6 +23,8 @@ urlpatterns = [
     path('super-user/', include('super_user.urls')),
     path('simple-user/', include('simple_user.urls')),
     path('categorie/', include('categories.urls')),
+    path('cours/', include('cours.urls'))
+
 
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
