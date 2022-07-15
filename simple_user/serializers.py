@@ -73,3 +73,32 @@ class SimpleUserSerializers(serializers.ModelSerializer):
         )
         simple_user.save()
         return simple_user
+
+    # Function to update simple user's data/profile 
+    def update(self, instance, validated_data):
+
+        # Update values of model User 
+        user_data = validated_data.pop('user')
+        user = instance.user 
+        user.username = user_data.get('username', user.username)
+        user.email = user_data.get('email', user.email)
+        password = user_data.pop('password')
+        user.set_password(password)
+        user.save()
+
+        # Update Simple User data 
+        instance.nom = validated_data.get('nom', instance.nom)
+        instance.prenom = validated_data.get('prenom', instance.prenom)
+        instance.date_de_naissance = validated_data.get('date_de_naissance', instance.date_de_naissance)
+        instance.adresse = validated_data.get('adresse', instance.adresse)
+        instance.code_postal = validated_data.get('code_postal', instance.code_postal)
+        instance.ville = validated_data.get('ville', instance.ville)
+        instance.num_tel = validated_data.get('num_tel', instance.num_tel)
+        instance.email = validated_data.get('email', instance.email)
+        instance.profile_image = validated_data.get('profile_image', instance.profile_image)
+        instance.resume = validated_data.get('resume', instance.resume)
+        instance.presentation = validated_data.get('presentation', instance.presentation)
+        instance.avancement = validated_data.get('avancement', instance.avancement)
+        instance.save()
+        
+        return instance

@@ -24,9 +24,11 @@ urlpatterns = [
     path('simple-user/', include('simple_user.urls')),
     path('categorie/', include('categories.urls')),
     path('cours/', include('cours.urls')),
-    path('cours/', include('cours.urls')),
     path('blogs/', include('blog.urls')),
-    # path('commentaires/', include('blog.urls')),
+    path('exercices/', include('exercices.urls')),
+    path('annonces/', include('annonces.urls')),
+    path('evalutions/', include('evaluation.urls')),
+
 
 
 

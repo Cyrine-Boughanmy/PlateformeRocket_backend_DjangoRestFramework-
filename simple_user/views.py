@@ -13,3 +13,8 @@ class SimpleUserCreation(generics.CreateAPIView):
     permission_classes = [permission]
     queryset = SimpleUser.objects.all()
     serializer_class = SimpleUserSerializers
+
+class SimpleUserDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permission]
+    queryset = SimpleUser.objects.all()
+    serializer_class = SimpleUserSerializers

@@ -13,3 +13,8 @@ class SuperUserCreation(generics.CreateAPIView):
     permission_classes = [permission]
     queryset = SuperUser.objects.all()
     serializer_class = SuperUserSerializers
+
+class SuperUserDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permission]
+    queryset = SuperUser.objects.all()
+    serializer_class = SuperUserSerializers
