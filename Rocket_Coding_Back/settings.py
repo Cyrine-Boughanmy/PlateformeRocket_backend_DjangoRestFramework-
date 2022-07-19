@@ -167,3 +167,4 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=15),
     'ROTATE_REFRESH_TOKENS': True,
 }
+

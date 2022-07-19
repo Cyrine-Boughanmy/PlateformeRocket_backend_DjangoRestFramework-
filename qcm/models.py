@@ -1,6 +1,3 @@
-from pyexpat import model
-from tabnanny import verbose
-from tkinter.messagebox import QUESTION
 from django.db import models
 from prompt_toolkit import prompt
 from categories.models import Categorie
