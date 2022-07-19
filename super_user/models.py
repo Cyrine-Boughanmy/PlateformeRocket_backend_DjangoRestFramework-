@@ -31,8 +31,8 @@ Pour la réinitialisation des mots de passe
 
 #     user = SuperUser.objects.filter(
 #         email=reset_password_token.user.email).get()
-#     nom = user.nom
-#     prenom = user.prenom
+#     nom = reset_password_token.user.nom
+#     prenom = reset_password_token.user.prenom
 
 #     email_plaintext_message = """Bonjour {} {},
 

@@ -1,0 +1,1 @@
+web: gunicorn Rocket_Coding_Back.wsgi --log-file - 
