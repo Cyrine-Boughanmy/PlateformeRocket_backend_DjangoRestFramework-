@@ -17,20 +17,21 @@ class Qcm(models.Model):
 
 class Question(models.Model):
     qcm = models.ForeignKey(Qcm, related_name='questions', on_delete=models.DO_NOTHING)
-    prompt = models.CharField(max_length=255, default ='')
+    choix_reponses = models.CharField(max_length=255, default ='')
 
     class Meta: 
         ordering = ['id']
 
     def __str__(self):
-        return self.prompt
+        return self.choix_reponses
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, related_name='answers', on_delete=models.DO_NOTHING)
-    text = models.CharField(max_length=255)
+    reponse = models.CharField(max_length=255)
     correct = models.BooleanField(default = False)
+    score = models.IntegerField(default=0, null=True)
 
     def __str__(self):
-        return self.text 
+        return self.reponse 
 
 
