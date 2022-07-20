@@ -1,5 +1,4 @@
 from django.db import models
-from prompt_toolkit import prompt
 from categories.models import Categorie
 class Qcm(models.Model):
     nom = models.CharField(max_length=45)
