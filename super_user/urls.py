@@ -8,7 +8,7 @@ urlpatterns = [
     path('update_profile/<int:pk>/', SuperUserDetail.as_view()),
 
 
-    # path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 
     #PATH FOR JWT TOKENS AND URLS
     path('token/', TokenObtainPairView.as_view()),
