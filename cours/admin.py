@@ -1,4 +1,7 @@
 from django.contrib import admin
 from .models import Cours
 
-admin.site.register(Cours)
+class CoursAdmin(admin.ModelAdmin):
+    list_filter = ["categorie"]
+
+admin.site.register(Cours, CoursAdmin)
