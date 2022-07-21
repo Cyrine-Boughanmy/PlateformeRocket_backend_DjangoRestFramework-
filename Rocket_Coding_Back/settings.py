@@ -27,7 +27,9 @@ SECRET_KEY = 'ce0smh36(1uc3==j$lvpd=9^i)9c77x604nuljj&7skm4h*h^%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*",
+                "127.0.0.1:8000", 
+                "https://rocketcoding-plateform-back.herokuapp.com/"]
 
 
 # Application definition
