@@ -1,5 +1,4 @@
 from dataclasses import fields
-from numpy import source
 from rest_framework import serializers
 from .models import Cours
 from categories.models import Categorie
