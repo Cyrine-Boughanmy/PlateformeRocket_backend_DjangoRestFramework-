@@ -1,5 +1,3 @@
-from django.shortcuts import HttpResponse
-from django.http import HttpResponse
 from .models import Categorie
 from .serializers import CategorieSerializers
 

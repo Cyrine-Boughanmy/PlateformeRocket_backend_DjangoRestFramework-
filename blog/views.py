@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import Blog, Commentaire
 from .serializers import BlogSerializer, CommentaireSerializer
 from rest_framework import generics

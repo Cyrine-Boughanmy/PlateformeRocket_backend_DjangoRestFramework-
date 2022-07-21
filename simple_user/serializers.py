@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import SimpleUser
 from .models import *
 from .serializers import *
-from django.contrib.auth.hashers import make_password
 
 class RegisterSimpleUserSerializer(serializers.ModelSerializer):
     class Meta: 

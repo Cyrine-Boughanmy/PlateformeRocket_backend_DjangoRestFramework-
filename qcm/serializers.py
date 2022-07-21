@@ -1,7 +1,3 @@
-from dataclasses import fields
-from statistics import mode
-
-from django.forms import ModelForm
 from .models import *
 from rest_framework import serializers
 

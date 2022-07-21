@@ -1,11 +1,9 @@
-from django.shortcuts import render
 from .serializers import CourSerializers, CategorySerializer
 from .models import Cours
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from rest_framework import status
 
 # Function to obtaining the list of courses that were created 
 @api_view(['GET'])
