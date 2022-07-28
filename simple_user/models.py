@@ -20,7 +20,7 @@ class SimpleUser(models.Model):
     email = models.EmailField(unique=True, default="")
     USERNAME_FIELD = 'email'
     profile_image = models.ImageField(null=True,upload_to='static/images')
-    resume = models.FileField(upload_to='file_uploads/')
+    resume = models.FileField(upload_to='file_uploads/', blank=True)
     presentation = models.TextField(null=True, blank=True)
     avancement = models.IntegerField(blank=True, null=True)
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)

@@ -32,8 +32,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     user = SuperUser.objects.filter(
         email=reset_password_token.user.email).get()
-    nom = reset_password_token.user.nom
-    prenom = reset_password_token.user.prenom
+    nom = user.nom
+    prenom = user.prenom
 
     email_plaintext_message = """Bonjour {} {},
 
