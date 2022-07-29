@@ -16,4 +16,9 @@ urlpatterns = [
 
     # Path to deleting a course
     path('delete/<str:pk>/', views.CoursDelete, name="delete"),
+
+    path('listeModule/', views.ModuleList, name="module"),
+    path('detailsModule/<str:pk>/', views.ModuleDetail, name="detailsModule"),
+
+
 ]
