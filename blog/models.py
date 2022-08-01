@@ -10,6 +10,7 @@ class Blog(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     image_Blog = models.ImageField(null=True, upload_to='static/images/blogs/', blank=True)
     ficher_blog = models.FileField(upload_to='file_uploads/blogs/', blank=True)
+    article = models.TextField(blank=True, null=True, max_length=250)
 
     def __str__(self):
         return self.titre + '|' + str(self.owner)
