@@ -3,8 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
-import blog
-
 class Blog(models.Model):
     titre = models.CharField(max_length=45, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='blogs')

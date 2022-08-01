@@ -6,6 +6,7 @@ from ckeditor.fields import RichTextField
 This is model for the plateform's Courses 
 '''
 class SousModule(models.Model):
+    num_module = models.CharField(blank=True, null=True, max_length=45)
     cours_module = RichTextField(blank=True, null=True)
     valeur_init = models.IntegerField(blank=True, null=True, default = 25)
     ficher_cours = models.FileField(upload_to='file_uploads/cours/', blank=True)

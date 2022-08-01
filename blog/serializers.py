@@ -6,11 +6,11 @@ from rest_framework import serializers
 class BlogSerializer(serializers.ModelSerializer):
 
     owner = serializers.ReadOnlyField(source='owner.username')
-    commentaires = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # commentaires = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta: 
         model = Blog
-        fields = ['id', 'titre', 'body', 'owner', 'commentaires']
+        fields = ['id', 'titre', 'body', 'owner']
 
 class OwnerSerializer(serializers.ModelSerializer):
 
