@@ -23,11 +23,13 @@ class CourSerializers(serializers.ModelSerializer):
     # This line helps to display the category by its name and not by its id
     categorie = serializers.StringRelatedField()
     module = ModuleSerializer(read_only=True, many=True)
+    # modules = serializers.StringRelatedField()
     # cours = serializers.SerializerMethodField()
 
     class Meta: 
         model = Cours
         fields = '__all__'
+        depth = 1
     
     # def get_accounts_items(self, obj):
     #     module_query = Module.objects.filter(module_id=obj.id)

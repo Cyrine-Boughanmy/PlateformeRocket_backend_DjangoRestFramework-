@@ -56,7 +56,7 @@ def ModuleList(request):
 
 @api_view(['GET'])
 def ModuleDetail(request, pk):
-    modules = Module.objects.filter(id = pk)
+    modules = Module.objects.get(id = pk)
     serializer = ModuleSerializer(modules, many = False)
     return Response(serializer.data)
 

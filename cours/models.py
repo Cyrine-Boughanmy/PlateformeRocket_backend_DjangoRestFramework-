@@ -5,6 +5,17 @@ from ckeditor.fields import RichTextField
 '''
 This is model for the plateform's Courses 
 '''
+
+class Module(models.Model):
+    # cours = models.ForeignKey(Cours, on_delete=models.CASCADE, blank=True, null=True, related_name='modules')
+    titre_module = models.CharField(max_length=45, blank=True, null=True) 
+    cours_module = RichTextField(blank=True, null=True)
+    valeur_init = models.IntegerField(blank=True, null=True, default = 25)
+    ficher_cours = models.FileField(upload_to='file_uploads/cours/', blank=True)
+
+    def __str__(self):
+        return self.titre_module 
+
 class Cours(models.Model):
     nom = models.CharField(max_length=45)
     description = models.CharField(max_length=45)
@@ -14,17 +25,8 @@ class Cours(models.Model):
     # valeur_init = models.IntegerField(blank=True, null=True, default = 25)
     image_cours = models.ImageField(null=True, upload_to='static/images/cours/', blank=True)
     # ficher_cours = models.FileField(upload_to='file_uploads/cours/', blank=True)
+    modules = models.ManyToManyField(Module)
+
 
     def __str__(self):
         return self.nom
-
-class Module(models.Model):
-    cours = models.ForeignKey(Cours, on_delete=models.CASCADE, blank=True, null=True, related_name='modules')
-    titre_module = models.CharField(max_length=45, blank=True, null=True) 
-    cours_module = RichTextField(blank=True, null=True)
-    valeur_init = models.IntegerField(blank=True, null=True, default = 25)
-    ficher_cours = models.FileField(upload_to='file_uploads/cours/', blank=True)
-
-    def __str__(self):
-        return self.titre_module + '|' + str(self.cours)
-
