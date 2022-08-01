@@ -1,5 +1,5 @@
-from .serializers import CourSerializers, CategorySerializer, ModuleSerializer
-from .models import Cours, Module
+from .serializers import CourSerializers, CategorySerializer, ModuleSerializer, SousModuleSerializers
+from .models import Cours, Module, SousModule
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
@@ -58,6 +58,19 @@ def ModuleList(request):
 def ModuleDetail(request, pk):
     modules = Module.objects.get(id = pk)
     serializer = ModuleSerializer(modules, many = False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def SousModuleList(request): 
+    sousModules = SousModule.objects.all()
+    serializer = SousModuleSerializers(sousModules, many = True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def SousModuleDetail(request, pk):
+    sousModules = SousModule.objects.get(id = pk)
+    serializer = SousModuleSerializers(sousModules, many = False)
     return Response(serializer.data)
 
 # class ListCreateModule(generics.ListCreateAPIView):

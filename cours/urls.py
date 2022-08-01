@@ -20,5 +20,8 @@ urlpatterns = [
     path('listeModule/', views.ModuleList, name="module"),
     path('detailsModule/<str:pk>/', views.ModuleDetail, name="detailsModule"),
 
+    path('listeSousModule/', views.SousModuleList, name="sousModule"),
+    path('detailsSousModule/<str:pk>/', views.SousModuleDetail, name="detailsSousModule"),
+
 
 ]
