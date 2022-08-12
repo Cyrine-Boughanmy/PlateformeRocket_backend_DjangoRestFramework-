@@ -1,3 +1,4 @@
+from dataclasses import fields
 from rest_framework import serializers
 from .models import SimpleUser
 from .models import *
@@ -101,3 +102,10 @@ class SimpleUserSerializers(serializers.ModelSerializer):
         instance.save()
         
         return instance
+
+class profileSimpleUser(serializers.ModelSerializer):
+
+    class Meta: 
+        model = SimpleUser
+        fields = '__all__'
+        depth = 3
