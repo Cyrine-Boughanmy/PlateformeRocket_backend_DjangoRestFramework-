@@ -1,4 +1,5 @@
 from time import time
+from tkinter.tix import Tree
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
@@ -12,7 +13,7 @@ class UserManager(BaseUserManager):
         if not username: 
             raise ValueError(('Veuillez saisir votre username !'))
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email, is_staff=is_staff, is_active=True, is_superuser=is_superuser, **extra_fields)
+        user = self.model(username=username, email=email, is_staff=is_staff, is_active=True, is_superuser=is_superuser, date_joined=now **extra_fields)
         user.set_password(make_password(password))
         user.save(using=self._db)
         return user 
@@ -28,13 +29,14 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=45, unique=True)
-    email = models.EmailField(max_length=200, unique=True)
+    email = models.EmailField(max_length=200, blank=False, null=False)
     first_name = models.CharField(max_length=45, blank=True, null=True)
     last_name = models.CharField(max_length=45, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)    
-    date_de_naissance = models.DateField(null=True)
+    date_joined = models.DateTimeField(default=timezone.now)
+    date_de_naissance = models.DateField(null=True, blank=True)
     adresse = models.CharField(max_length=45, null=True)
     code_postal = models.CharField(max_length=45, null=True)
     ville = models.CharField(max_length=45, null=True)

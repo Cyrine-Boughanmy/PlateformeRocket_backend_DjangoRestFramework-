@@ -11,6 +11,11 @@ class RegisterSerializer(serializers.Serializer):
     adresse = serializers.CharField(required = False, write_only = True)
     password1 = serializers.CharField(required = False)
     password2 = serializers.CharField(required = True)
+    # old_password = serializers.CharField(write_only=True, required=True)
+    # # new_password = serializers.CharField(required=True)
+    # class Meta:
+    #     model = User
+    #     fields = ('old_password', 'password1', 'password2')
 
     def validate_password1(self, password):
         return get_adapter().clean_password(password)
@@ -19,6 +24,8 @@ class RegisterSerializer(serializers.Serializer):
         if data['password1'] != data['password2']:
             raise serializers.ValidationError( ("Les 2 mots de passe ne sont pas conformes !"))
         return data 
+    
+    
     
     def custom_signup(self, request, user):
         pass
@@ -47,9 +54,10 @@ class RegisterSerializer(serializers.Serializer):
         return user 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
+    # date_de_naissance = serializers.DateField(format="%Y-%m-%d")
     class Meta: 
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'adresse', 'date_de_naissance', 'code_postal', 'ville', 'num_tel', 'profile_image', 'resume', 'presentation', 'password1', )
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'adresse',  'code_postal', 'ville', 'num_tel', 'profile_image', 'resume', 'presentation' )
         read_only_fields = ('email', )
 
 

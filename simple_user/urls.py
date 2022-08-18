@@ -1,7 +1,7 @@
 from django.urls import path, include
 # from .views import CreateSimpleUser, SimpleUserCreation, SimpleUserDetail, SimpleUserList, SimpleUserDetailView, MyTokenObtainPairView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import SimpleUserList, MyTokenObtainPairView, SimpleUserDetailView
+from .views import SimpleUserList, MyTokenObtainPairView, SimpleUserDetailView, ChangePasswordView
 urlpatterns = [
     # path('user/', CreateSimpleUser.as_view()),
     # path('register/', SimpleUserCreation.as_view()),
@@ -10,6 +10,7 @@ urlpatterns = [
     # path('profile/<str:pk>/', SimpleUserDetailView.as_view()), 
     path('users/', SimpleUserList.as_view()),
     path('profile/<str:pk>/', SimpleUserDetailView.as_view()), 
+    path('change_password/<int:pk>/', ChangePasswordView.as_view()),
 
 
     # path('password-reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
