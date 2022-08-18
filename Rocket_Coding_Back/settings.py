@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django_rest_passwordreset',
     'django_filters',
     'ckeditor', 
-    'super_user', 
     'simple_user', 
     'exercices', 
     'cours', 
@@ -53,7 +52,9 @@ INSTALLED_APPS = [
     'evaluation',
     'qcm', 
     'annonces',
-    'blog'
+    'blog',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +129,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.OrderingFilter',
-    )
+    ),
+    'USER_DETAILS_SERIALIZER': 'simple_user.serializer.UserDetailsSerializer'
 }
 
 
@@ -188,3 +190,14 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "rocketcoding.bootcamp@gmail.com"
 EMAIL_HOST_PASSWORD = "luwaqfyqhkgysanf"
+
+AUTH_USER_MODEL = 'simple_user.User'
+ACCOUNT_EMAIL_REQUIRED = False
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'hupbce1pu',
+    'API_KEY': '364648598675739',
+    'API_SECRET': '8S3vTfqiQMkjls1_18pYIhGajag',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

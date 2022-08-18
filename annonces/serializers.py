@@ -5,7 +5,7 @@ class AnnonceSerializer(serializers.ModelSerializer):
     publie_par = serializers.ReadOnlyField(source='publie_par.username')
     class Meta: 
         model = Annonce
-        fields = ['id', 'titre', 'description', 'publie_par', 'image_annonce', 'fichier_pdf' ]
+        fields = ['id', 'titre_annonce', 'description_annonce', 'publie_par', 'image_annonce', 'fichier_annonce_pdf' ]
 
 class OwnerSerializer(serializers.ModelSerializer):
     class Meta: 
