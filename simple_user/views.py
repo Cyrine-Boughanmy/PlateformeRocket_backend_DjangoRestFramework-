@@ -3,7 +3,7 @@ from rest_framework import generics, permissions
 # from django.contrib.auth.models import User
 from .models import User
 from .serializers import *
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 # from django_filters.rest_framework import DjangoFilterBackend
@@ -39,7 +39,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 class SimpleUserDetailView(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
 

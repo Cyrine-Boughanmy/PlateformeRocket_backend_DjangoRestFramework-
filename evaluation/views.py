@@ -2,10 +2,12 @@ from .serializers import EvaluationSerializers
 from .models import EvaluationClass
 
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework import permissions
+from rest_framework.decorators import api_view, permission_classes
 
 # Function to obtaining the list of evaluation exercices that were created 
 @api_view(['GET'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def EvaluationList(request): 
     evaluations = EvaluationClass.objects.all()
     serializer = EvaluationSerializers(evaluations, many = True)
@@ -13,6 +15,7 @@ def EvaluationList(request):
 
 # Function to get an evaluation exercice by its ID 
 @api_view(['GET'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def EvaluationDetail(request, pk):
     evaluations = EvaluationClass.objects.get(id = pk)
     serializer = EvaluationSerializers(evaluations, many = False)
@@ -20,6 +23,7 @@ def EvaluationDetail(request, pk):
 
 # Function to Creating a new evaluation exercice 
 @api_view(['POST'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def EvaluationCreate(request):
     serializer = EvaluationSerializers(data=request.data)
 
@@ -29,6 +33,7 @@ def EvaluationCreate(request):
 
 # Function to updating an evaluation exercice 
 @api_view(['PUT'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def EvaluationUpdate(request, pk):
     evaluations = EvaluationClass.objects.get(id = pk)
     serializer = EvaluationSerializers(instance=evaluations, data = request.data)
@@ -39,6 +44,7 @@ def EvaluationUpdate(request, pk):
 
 # Function to be able to delete an evaluation exercice
 @api_view(['DELETE'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def EvaluationDelete(request, pk):
     evaluations = EvaluationClass.objects.get(id=pk)
     evaluations.delete()

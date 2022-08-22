@@ -5,16 +5,20 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from rest_framework import generics, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class ListCreateQcm(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Qcm.objects.all()
     serializer_class = QcmSerializer
 
 class RetrieveUpdateDestroyQcm(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Qcm.objects.all()
     serializer_class = QcmSerializer
 
 class ListCreateQuestion(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
@@ -26,6 +30,7 @@ class ListCreateQuestion(generics.ListCreateAPIView):
         serializer.save(qcm=qcm)
 
 class RetrieveUpdateDestroyQuestion(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     
@@ -37,6 +42,7 @@ class RetrieveUpdateDestroyQuestion(generics.RetrieveUpdateDestroyAPIView):
         )
 
 class ListCreateAnswer(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
@@ -51,6 +57,7 @@ class ListCreateAnswer(generics.ListCreateAPIView):
         serializer.save(question=question)
 
 class RetrieveUpdateDestroyAnswer(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
@@ -58,6 +65,7 @@ class RetrieveUpdateDestroyAnswer(generics.RetrieveUpdateDestroyAPIView):
         return get_object_or_404(self.get_queryset(), pk = self.kwargs.get('pk'))
 
 class QcmViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Qcm.objects.all()
     serializer_class = QcmSerializer
 
@@ -89,6 +97,7 @@ class QcmViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 class QuestionViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
@@ -99,6 +108,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 class AnswerViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
