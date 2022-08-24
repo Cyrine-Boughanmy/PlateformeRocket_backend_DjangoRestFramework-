@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
         if not username: 
             raise ValueError(('Veuillez saisir votre username !'))
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email, is_staff=is_staff, is_active=True, is_superuser=is_superuser, date_joined=now **extra_fields)
+        user = self.model(username=username, email=email, is_staff=is_staff, is_active=True, is_superuser=is_superuser, date_joined=now, **extra_fields)
         user.set_password(make_password(password))
         user.save(using=self._db)
         return user 
