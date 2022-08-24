@@ -5,8 +5,9 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
-
-
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.core.mail import send_mail
+from django.dispatch import receiver
 class UserManager(BaseUserManager):
     def _create_user(self, username, email, password, is_staff, is_superuser, **extra_fields):
         now = timezone.now()
@@ -28,7 +29,7 @@ class UserManager(BaseUserManager):
         return user 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=45, unique=True)
+    username = models.CharField(max_length=45, unique=True, blank=True, null=True)
     email = models.EmailField(max_length=200, blank=False, null=False)
     first_name = models.CharField(max_length=45, blank=True, null=True)
     last_name = models.CharField(max_length=45, blank=True, null=True)
@@ -81,41 +82,43 @@ class User(AbstractBaseUser, PermissionsMixin):
 #     def __str__(self):
 #         return self.prenom
 
-# '''
-# Pour la réinitialisation des mots de passe 
-# '''
-# @receiver(reset_password_token_created)
-# def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
+'''
+Pour la réinitialisation des mots de passe 
+'''
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
 
-#     user = SimpleUser.objects.filter(
-#         email=reset_password_token.user.email).get()
-#     nom = user.nom
-#     prenom = user.prenom
+    user = User.objects.filter(
+        email=reset_password_token.user.email).get()
+    first_name = user.first_name
+    last_name = user.last_name
 
-#     email_plaintext_message = """Bonjour {} {},
+    email_plaintext_message = """Bonjour {} {},
 
-# Vous avez récemment demandé la réinitialisation du mot de passe de votre compte Markus. 
-# Veuillez suivre la procédure communiquée ci-dessous.
+Vous avez récemment demandé la réinitialisation du mot de passe de votre compte Rocket Coding. 
+Veuillez suivre la procédure communiquée ci-dessous.
 
-# Copiez ce code de modification : {}
+Copiez ce code de modification : {}
 
-# Ensuite, revenez sur la page de modification du mot de passe de l’application et renseignez le code reçu par mail dans le champs correspondant.
+Ensuite, revenez sur la page de modification du mot de passe de l’application et renseignez le code reçu par mail dans le champs correspondant.
 
-# Enfin, choisissez votre nouveau mot de passe et confirmez-le.
+Vouz pouvez saisir votre code en utilisant le lien suivant : http://localhost:3000/token
 
-# Si vous n’avez pas demandé une réinitialisation de votre mot de passe, ignorez ce email.
+Enfin, choisissez votre nouveau mot de passe et confirmez-le.
 
-# Markus vous remercie de votre confiance.
+Si vous n’avez pas demandé une réinitialisation de votre mot de passe, ignorez ce email.
 
-#     """.format(nom, prenom, reset_password_token.key)
+Rocket Coding vous remercie de votre confiance.
 
-#     send_mail(
-#         # title:
-#         "Password Reset for {title}".format(title="Rocket Coding Bootcamp"),
-#         # message:
-#         email_plaintext_message,
-#         # from:
-#         "rocketcoding.bootcamp@gmail.com",
-#         # to:
-#         [reset_password_token.user.email]
-#     )
+    """.format(first_name, last_name, reset_password_token.key)
+
+    send_mail(
+        # title:
+        "Password Reset for {title}".format(title="Rocket Coding Bootcamp"),
+        # message:
+        email_plaintext_message,
+        # from:
+        "rocketcoding.bootcamp@gmail.com",
+        # to:
+        [reset_password_token.user.email]
+    )

@@ -28,7 +28,7 @@ urlpatterns = [
     path('annonces/', include('annonces.urls')),
     path('evaluations/', include('evaluation.urls')),
     path('qcm/', include('qcm.urls')),
-
+    path('accounts/', include('django.contrib.auth.urls')),
 
 
 

@@ -10,12 +10,18 @@ urlpatterns = [
     # path('profile/<str:pk>/', SimpleUserDetailView.as_view()), 
     path('users/', SimpleUserList.as_view()),
     path('profile/<str:pk>/', SimpleUserDetailView.as_view()), 
-    path('change_password/<int:pk>/', ChangePasswordView.as_view()),
+    path('change_password/', ChangePasswordView.as_view()),
 
 
-    # path('password-reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('password_reset/confirm/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('password_reset/validate_token/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+
 
     #PATH FOR JWT TOKENS AND URLS
     path('token/', MyTokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()), 
+
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/password_change/', include('django.contrib.auth.urls')),
 ]

@@ -182,8 +182,9 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',
 )
 
+#### This one is used to test emails sent by console (terminal) ####
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
