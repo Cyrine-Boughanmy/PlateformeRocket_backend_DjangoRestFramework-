@@ -5,9 +5,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from rest_framework import status
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework import permissions
 # Function to obtaining the list of categories that were created 
 @api_view(['GET'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def CategorieList(request): 
     categories = Categorie.objects.all()
     serializer = CategorieSerializers(categories, many = True)
@@ -15,6 +17,7 @@ def CategorieList(request):
 
 # Function to get a category by its ID 
 @api_view(['GET'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def CategorieDetail(request, pk):
     categories = Categorie.objects.get(id = pk)
     serializer = CategorieSerializers(categories, many = False)
@@ -22,6 +25,7 @@ def CategorieDetail(request, pk):
 
 # Function to Creating a new category 
 @api_view(['POST'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def CategorieCreate(request):
     serializer = CategorieSerializers(data=request.data)
 
@@ -31,6 +35,7 @@ def CategorieCreate(request):
 
 # Function to updating a category 
 @api_view(['POST'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def CategorieUpdate(request, pk):
     categories = Categorie.objects.get(id = pk)
     serializer = CategorieSerializers(instance=categories, data = request.data)
@@ -41,6 +46,7 @@ def CategorieUpdate(request, pk):
 
 # Function to be able to delete a category 
 @api_view(['DELETE'])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
 def CategorieDelete(request, pk):
     categories = Categorie.objects.get(id=pk)
     categories.delete()

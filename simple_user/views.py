@@ -8,7 +8,9 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 # from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
+from rest_framework.generics import get_object_or_404
 from rest_framework import status
+from rest_framework.views import APIView
 class SimpleUserList(generics.ListAPIView):
     # permission_classes = [IsAuthenticated]
     serializer_class = UserDetailsSerializer
@@ -43,39 +45,62 @@ class SimpleUserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
 
-class ChangePasswordView(generics.UpdateAPIView):
-    """
-    An endpoint for changing password.
-    """
+class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
-    serializer_class = ChangePasswordSerializer
-    model = User
+    def get_object(self, username):
+        user = get_object_or_404(User, username=username)
+        return user
 
-    def get_object(self, queryset=None):
-        obj = self.request.user
-        return obj
-
-    def update(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        serializer = self.get_serializer(data=request.data)
-
+    def put(self, request):
+        
+        serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
-            # Check old password
-            if not self.object.check_password(serializer.data.get("old_password")):
-                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
-            # set_password also hashes the password that the user will get
-            self.object.set_password(serializer.data.get("new_password"))
-            self.object.save()
-            response = {
-                'status': 'success',
-                'code': status.HTTP_200_OK,
-                'message': 'Password updated successfully',
-                'data': []
-            }
-
-            return Response(response)
-
+            username = serializer.data['username']
+            user = self.get_object(username)
+            new_password = serializer.data['password']
+            is_same_as_old = user.check_password(new_password)
+            if is_same_as_old:
+                """
+                old password and new passwords should not be the same
+                """
+                return Response({"password": ["It should be different from your last password."]},
+                                status=status.HTTP_400_BAD_REQUEST)
+            user.set_password(new_password)
+            user.save()
+            return Response({'success':True})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # """
+    # An endpoint for changing password.
+    # """
+    # permission_classes = [IsAuthenticatedOrReadOnly]
+    # serializer_class = ChangePasswordSerializer
+    # model = User
+
+    # def get_object(self, queryset=None):
+    #     obj = self.request.user
+    #     return obj
+
+    # def update(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     serializer = self.get_serializer(data=request.data)
+
+    #     if serializer.is_valid():
+    #         # Check old password
+    #         if not self.object.check_password(serializer.data.get("old_password")):
+    #             return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+    #         # set_password also hashes the password that the user will get
+    #         self.object.set_password(serializer.data.get("new_password"))
+    #         self.object.save()
+    #         response = {
+    #             'status': 'success',
+    #             'code': status.HTTP_200_OK,
+    #             'message': 'Password updated successfully',
+    #             'data': []
+    #         }
+
+    #         return Response(response)
+
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 # class ChangePasswordView(generics.UpdateAPIView):
     
 #     # queryset = User.objects.all()

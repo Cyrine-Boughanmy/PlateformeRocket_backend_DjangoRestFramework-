@@ -47,6 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     presentation = models.TextField(null=True, blank=True)
     avancement = models.IntegerField(blank=True, null=True)
 
+
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
@@ -98,11 +99,11 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 Vous avez récemment demandé la réinitialisation du mot de passe de votre compte Rocket Coding. 
 Veuillez suivre la procédure communiquée ci-dessous.
 
-Copiez ce code de modification : {}
+
 
 Ensuite, revenez sur la page de modification du mot de passe de l’application et renseignez le code reçu par mail dans le champs correspondant.
 
-Vouz pouvez saisir votre code en utilisant le lien suivant : http://localhost:3000/token
+Vouz pouvez saisir votre code en utilisant le lien suivant : http://localhost:3000/token/{}
 
 Enfin, choisissez votre nouveau mot de passe et confirmez-le.
 
