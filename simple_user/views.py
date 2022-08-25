@@ -1,4 +1,3 @@
-# from lib2to3.pgen2 import token
 from rest_framework import generics, permissions
 # from django.contrib.auth.models import User
 from .models import User
